@@ -15,6 +15,10 @@
 		AD52AE1E20DBD4AA00B2D301 /* VLBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */; };
 		AD52AE2220DBD4D200B2D301 /* VLVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2020DBD4D200B2D301 /* VLVector.swift */; };
 		AD52AE2320DBD4D200B2D301 /* VLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2120DBD4D200B2D301 /* VLMatrix.swift */; };
+		AD52AE2620DBED1D00B2D301 /* VLBaseSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2520DBED1D00B2D301 /* VLBaseSimulation.swift */; };
+		AD52AE2920DBEDF300B2D301 /* VLSteadyStateSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2820DBEDF300B2D301 /* VLSteadyStateSimulation.swift */; };
+		AD52AE2B20DBF3C200B2D301 /* VLDiscreteTimeDynamicSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2A20DBF3C200B2D301 /* VLDiscreteTimeDynamicSimulation.swift */; };
+		AD52AE2E20DBF57A00B2D301 /* VLSimpleGRNModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2D20DBF57A00B2D301 /* VLSimpleGRNModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +43,10 @@
 		AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLBaseModel.swift; sourceTree = "<group>"; };
 		AD52AE2020DBD4D200B2D301 /* VLVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLVector.swift; sourceTree = "<group>"; };
 		AD52AE2120DBD4D200B2D301 /* VLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLMatrix.swift; sourceTree = "<group>"; };
+		AD52AE2520DBED1D00B2D301 /* VLBaseSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLBaseSimulation.swift; sourceTree = "<group>"; };
+		AD52AE2820DBEDF300B2D301 /* VLSteadyStateSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLSteadyStateSimulation.swift; sourceTree = "<group>"; };
+		AD52AE2A20DBF3C200B2D301 /* VLDiscreteTimeDynamicSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLDiscreteTimeDynamicSimulation.swift; sourceTree = "<group>"; };
+		AD52AE2D20DBF57A00B2D301 /* VLSimpleGRNModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLSimpleGRNModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,11 +118,31 @@
 		AD52AE2420DBD4ED00B2D301 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */,
+				AD52AE2C20DBF44600B2D301 /* models */,
+				AD52AE2720DBEDD800B2D301 /* simulations */,
 				AD52AE1920DBD4AA00B2D301 /* VLModelParameters.swift */,
+				AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */,
+				AD52AE2520DBED1D00B2D301 /* VLBaseSimulation.swift */,
 				AD52AE1F20DBD4C300B2D301 /* math */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		AD52AE2720DBEDD800B2D301 /* simulations */ = {
+			isa = PBXGroup;
+			children = (
+				AD52AE2820DBEDF300B2D301 /* VLSteadyStateSimulation.swift */,
+				AD52AE2A20DBF3C200B2D301 /* VLDiscreteTimeDynamicSimulation.swift */,
+			);
+			path = simulations;
+			sourceTree = "<group>";
+		};
+		AD52AE2C20DBF44600B2D301 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				AD52AE2D20DBF57A00B2D301 /* VLSimpleGRNModel.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,10 +254,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD52AE2920DBEDF300B2D301 /* VLSteadyStateSimulation.swift in Sources */,
 				AD52AE1D20DBD4AA00B2D301 /* VLModelKitCore.swift in Sources */,
+				AD52AE2620DBED1D00B2D301 /* VLBaseSimulation.swift in Sources */,
 				AD52AE1E20DBD4AA00B2D301 /* VLBaseModel.swift in Sources */,
+				AD52AE2E20DBF57A00B2D301 /* VLSimpleGRNModel.swift in Sources */,
 				AD52AE2220DBD4D200B2D301 /* VLVector.swift in Sources */,
 				AD52AE2320DBD4D200B2D301 /* VLMatrix.swift in Sources */,
+				AD52AE2B20DBF3C200B2D301 /* VLDiscreteTimeDynamicSimulation.swift in Sources */,
 				AD52AE1C20DBD4AA00B2D301 /* VLModelParameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
