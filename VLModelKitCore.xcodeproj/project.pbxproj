@@ -10,6 +10,11 @@
 		AD52AE0820DBD46B00B2D301 /* VLModelKitCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD52ADFE20DBD46B00B2D301 /* VLModelKitCore.framework */; };
 		AD52AE0D20DBD46B00B2D301 /* VLModelKitCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE0C20DBD46B00B2D301 /* VLModelKitCoreTests.swift */; };
 		AD52AE0F20DBD46B00B2D301 /* VLModelKitCore.h in Headers */ = {isa = PBXBuildFile; fileRef = AD52AE0120DBD46B00B2D301 /* VLModelKitCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD52AE1C20DBD4AA00B2D301 /* VLModelParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE1920DBD4AA00B2D301 /* VLModelParameters.swift */; };
+		AD52AE1D20DBD4AA00B2D301 /* VLModelKitCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE1A20DBD4AA00B2D301 /* VLModelKitCore.swift */; };
+		AD52AE1E20DBD4AA00B2D301 /* VLBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */; };
+		AD52AE2220DBD4D200B2D301 /* VLVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2020DBD4D200B2D301 /* VLVector.swift */; };
+		AD52AE2320DBD4D200B2D301 /* VLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52AE2120DBD4D200B2D301 /* VLMatrix.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,11 @@
 		AD52AE0720DBD46B00B2D301 /* VLModelKitCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VLModelKitCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD52AE0C20DBD46B00B2D301 /* VLModelKitCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLModelKitCoreTests.swift; sourceTree = "<group>"; };
 		AD52AE0E20DBD46B00B2D301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD52AE1920DBD4AA00B2D301 /* VLModelParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLModelParameters.swift; sourceTree = "<group>"; };
+		AD52AE1A20DBD4AA00B2D301 /* VLModelKitCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLModelKitCore.swift; sourceTree = "<group>"; };
+		AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLBaseModel.swift; sourceTree = "<group>"; };
+		AD52AE2020DBD4D200B2D301 /* VLVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLVector.swift; sourceTree = "<group>"; };
+		AD52AE2120DBD4D200B2D301 /* VLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLMatrix.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +81,8 @@
 		AD52AE0020DBD46B00B2D301 /* VLModelKitCore */ = {
 			isa = PBXGroup;
 			children = (
+				AD52AE2420DBD4ED00B2D301 /* src */,
+				AD52AE1A20DBD4AA00B2D301 /* VLModelKitCore.swift */,
 				AD52AE0120DBD46B00B2D301 /* VLModelKitCore.h */,
 				AD52AE0220DBD46B00B2D301 /* Info.plist */,
 			);
@@ -84,6 +96,25 @@
 				AD52AE0E20DBD46B00B2D301 /* Info.plist */,
 			);
 			path = VLModelKitCoreTests;
+			sourceTree = "<group>";
+		};
+		AD52AE1F20DBD4C300B2D301 /* math */ = {
+			isa = PBXGroup;
+			children = (
+				AD52AE2120DBD4D200B2D301 /* VLMatrix.swift */,
+				AD52AE2020DBD4D200B2D301 /* VLVector.swift */,
+			);
+			path = math;
+			sourceTree = "<group>";
+		};
+		AD52AE2420DBD4ED00B2D301 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				AD52AE1B20DBD4AA00B2D301 /* VLBaseModel.swift */,
+				AD52AE1920DBD4AA00B2D301 /* VLModelParameters.swift */,
+				AD52AE1F20DBD4C300B2D301 /* math */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +179,7 @@
 				TargetAttributes = {
 					AD52ADFD20DBD46B00B2D301 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 					AD52AE0620DBD46B00B2D301 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -194,6 +226,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD52AE1D20DBD4AA00B2D301 /* VLModelKitCore.swift in Sources */,
+				AD52AE1E20DBD4AA00B2D301 /* VLBaseModel.swift in Sources */,
+				AD52AE2220DBD4D200B2D301 /* VLVector.swift in Sources */,
+				AD52AE2320DBD4D200B2D301 /* VLMatrix.swift in Sources */,
+				AD52AE1C20DBD4AA00B2D301 /* VLModelParameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +375,7 @@
 		AD52AE1320DBD46B00B2D301 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -357,6 +395,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.varnerlab.VLModelKitCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -364,6 +403,7 @@
 		AD52AE1420DBD46B00B2D301 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -390,6 +430,7 @@
 		AD52AE1620DBD46B00B2D301 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9H8NJ2NLT7;
@@ -408,6 +449,7 @@
 		AD52AE1720DBD46B00B2D301 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9H8NJ2NLT7;
