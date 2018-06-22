@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol VLSimulationDelegate {
+    func range(simulation:VLBaseSimulation) -> VLSimulationRange
+}
+
 public class VLBaseSimulation {
     
     // iVars -

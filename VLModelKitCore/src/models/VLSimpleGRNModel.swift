@@ -8,6 +8,15 @@
 
 import Foundation
 
+public protocol VLGeneExpressionModelDelegate:VLModelDelegate {
+    
+    func transcription(time:Float,state:VLVector<Float>,parameters:VLModelParameters) -> VLModelKitResult<VLVector<Float>>
+    func translation(time:Float,state:VLVector<Float>,parameters:VLModelParameters) -> VLModelKitResult<VLVector<Float>>
+    func growth(time:Float, state:VLVector<Float>, parameters:VLModelParameters) -> VLModelKitResult<Float>
+    func degradation(time:Float, state:VLVector<Float>, speciesType:VLSpeciesType, parameters:VLModelParameters) -> VLModelKitResult<VLVector<Float>>
+    func control(time:Float, state:VLVector<Float>, controlType:VLControlType, parameters:VLModelParameters) -> VLModelKitResult<VLVector<Float>>
+}
+
 public class VLSimpleGRNModel:VLBaseModel {
     
     // iVars -
@@ -17,25 +26,26 @@ public class VLSimpleGRNModel:VLBaseModel {
     var AM:VLMatrix<Float>?
     var BM:VLMatrix<Float>?
     var CM:VLMatrix<Float>?
-    var state:VLVector<Float>?
     
     // override -
-    public override func evaluate(completion: @escaping Handler<VLVector<Float>>) throws -> Void {
+    public override func evaluate(state:VLVector<Float>) throws -> VLModelKitResult<VLVector<Float>> {
         
         // ok, evaluate the kinetics -
-        if let state_array = state, let AM = AM, let BM = BM {
+        if let AM = AM, let BM = BM {
             
             // calculate the rates -
-            let kinetic_array = try self.kinetic(time:0.0,state: state_array, parameters: myModelParameters).resolve()
+            let kinetic_array = try self.kinetic(time:0.0,state: state, parameters: myModelParameters).resolve()
             
             // evaluate the RHS of the model -
-            let term_1:VLVector<Float> = AM*state_array
+            let term_1:VLVector<Float> = AM*state
             let term_2:VLVector<Float> = BM*kinetic_array
             let tmp_array = term_1 + term_2
            
             // call the completion handler -
-            completion(VLModelKitResult.success(tmp_array))
+            return VLModelKitResult.success(tmp_array)
         }
+        
+        return VLModelKitResult.failure(error: VLModelKitError.SimulationFailedError(mesage: "Model evaluation failed"))
     }
     
     // MARK: - private helper method -
@@ -61,7 +71,7 @@ public class VLSimpleGRNModel:VLBaseModel {
         // ...
         
         // do the calculation -
-        let tmp_array = raw_kinetics_array*control_array
+        let tmp_array = raw_kinetics_array .* control_array
         return VLModelKitResult.success(tmp_array)
     }
 }

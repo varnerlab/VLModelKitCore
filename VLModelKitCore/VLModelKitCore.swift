@@ -6,6 +6,8 @@ public typealias Handler<Value> = (VLModelKitResult<Value>) -> Void
 /// Error type: SimulationFailedError - general error indicating something happend
 public enum VLModelKitError:Error {
     case SimulationFailedError(mesage:String)
+    case ModelNotImplementError(message:String)
+    case DimensionMismatchError(message:String)
 }
 
 /// Species type: Atomic types of species in the model -
@@ -33,7 +35,7 @@ public enum VLControlType {
 }
 
 /// Window type: Encodes the time window that we want to look at -
-public struct VLSimulationTimeWindow {
+public struct VLSimulationRange {
     
     public var start:Float
     public var stop:Float
@@ -63,3 +65,7 @@ extension VLModelKitResult {
         }
     }
 }
+
+/// operators -
+infix operator .*: MultiplicationPrecedence
+infix operator |=: AssignmentPrecedence

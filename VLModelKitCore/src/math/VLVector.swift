@@ -65,7 +65,7 @@ extension VLVector where Element == Float {
         return return_array
     }
     
-    public static func *(left:VLVector<Float>,right:VLVector<Float>) -> VLVector<Float> {
+    public static func .*(left:VLVector<Float>,right:VLVector<Float>) -> VLVector<Float> {
         
         // get the buffers -
         let number_of_elements = left.count
@@ -81,4 +81,5 @@ extension VLVector where Element == Float {
         // return -
         return return_array
     }
+    
 }
