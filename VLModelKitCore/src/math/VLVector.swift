@@ -30,6 +30,21 @@ extension VLVector where Element == Float  {
     public static func zeros(count: Int) -> VLVector<Float> {
         return VLVector<Float>(count: count, repeatedValue: 0.0)
     }
+    
+    public static func build(fromBuffer buffer:[Float]) -> VLVector<Float> {
+        
+        // init w/zeros -
+        let number_of_elements = buffer.count
+        var vector = VLVector<Float>.zeros(count: number_of_elements)
+        
+        // fill -
+        for index in 0..<number_of_elements {
+            vector[index] = buffer[index]
+        }
+        
+        // return -
+        return vector
+    }
 }
 
 // subscript extensions -
@@ -82,4 +97,22 @@ extension VLVector where Element == Float {
         return return_array
     }
     
+    public static func |=(left:VLVector<Float>,right:VLVector<Float>) -> VLModelKitResult<VLVector<Float>> {
+        
+        // what is the total length?
+        var tmp_array = [Float]()
+        for index in 0..<left.count {
+            tmp_array.append(left[index])
+        }
+        
+        for index in 0..<right.count {
+            tmp_array.append(right[index])
+        }
+        
+        // build tmp vector -
+        let tmp_vector = VLVector<Float>.build(fromBuffer: tmp_array)
+        
+        // wrap and return -
+        return VLModelKitResult.success(tmp_vector)
+    }
 }

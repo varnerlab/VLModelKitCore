@@ -62,13 +62,9 @@ public class VLSimpleGRNModel:VLBaseModel {
         let transcription_control_array = try local_delegate.control(time: time, state: state, controlType: VLControlType.transcription, parameters: myModelParameters).resolve()
         let translation_control_array = try local_delegate.control(time: time, state: state, controlType: VLControlType.translation, parameters: myModelParameters).resolve()
         
-        // iniatilize the kinetics and control array -
-        let total_count = transcription_rate_array.count + translation_rate_array.count
-        let raw_kinetics_array = VLVector<Float>.zeros(count: total_count)
-        let control_array = VLVector<Float>.zeros(count: total_count)
-        
-        // populate the kinetics and control array -
-        // ...
+        // build the kinetics and control array -
+        let raw_kinetics_array = try (transcription_rate_array |= translation_rate_array).resolve()
+        let control_array = try (transcription_control_array |= translation_control_array).resolve()
         
         // do the calculation -
         let tmp_array = raw_kinetics_array .* control_array
