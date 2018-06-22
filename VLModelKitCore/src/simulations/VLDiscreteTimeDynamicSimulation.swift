@@ -37,13 +37,13 @@ public class VLDiscreteTimeDynamicSimulation:VLBaseSimulation {
                 let duration = delegate.range(simulation: self)
                 
                 // create a time array from the duration struct -
-                var tmp_time_array = [Float]()
+                var time_archive = [Float]()
                 let start_time = duration.start
                 let stop_time = duration.stop
                 let step_size = duration.stepSize
                 
                 // add the start point to the time array -
-                tmp_time_array.append(start_time)
+                time_archive.append(start_time)
                 
                 // main loop -
                 var current_time = start_time
@@ -63,7 +63,7 @@ public class VLDiscreteTimeDynamicSimulation:VLBaseSimulation {
                         current_time += step_size
                         
                         // capture the time -
-                        tmp_time_array.append(current_time)
+                        time_archive.append(current_time)
                         
                         // update the state archive -
                         state_archive = try (state_archive |= new_state_array).resolve()
@@ -73,7 +73,11 @@ public class VLDiscreteTimeDynamicSimulation:VLBaseSimulation {
                     }
                 }
                 
-                // ok, we have the time array, and the state archive. we need to return the simulation archive -
+                // build the archive -
+                let simulation_archive = self.buildSimulationArchive(timeArray: time_archive, stateArchive: state_archive)
+                
+                // call the completion -
+                completion(VLModelKitResult.success(simulation_archive))
             }
         }
         catch {
@@ -86,9 +90,33 @@ public class VLDiscreteTimeDynamicSimulation:VLBaseSimulation {
     }
     
     // MARK: - private helper methods -
-    private func buildSimulationArchive(timeArray:VLVector<Float>,stateArchive:VLMatrix<Float>) -> VLMatrix<Float>? {
+    private func buildSimulationArchive(timeArray:[Float],stateArchive:VLMatrix<Float>) -> VLMatrix<Float> {
         
         // ok, lets get the dimension -
-        return nil
+        let number_of_time_points = timeArray.count
+        let number_of_states:Int = stateArchive.number_of_rows
+        
+        // generate new array -
+        var simulation_archive = VLMatrix<Float>.zeros(rows: (number_of_states + 1), columns: number_of_time_points)
+        
+        // the first row is the time -
+        for col_index in 0..<number_of_time_points {
+            simulation_archive[0,col_index] = timeArray[col_index]
+        }
+        
+        // the remaning rows are the states -
+        for row_index in 0..<number_of_states {
+            for col_index in 0..<number_of_time_points {
+                
+                // get the state value -
+                let state_value = stateArchive[row_index,col_index]
+                
+                // store -
+                simulation_archive[row_index+1,col_index] = state_value
+            }
+        }
+        
+        // return -
+        return simulation_archive
     }
 }

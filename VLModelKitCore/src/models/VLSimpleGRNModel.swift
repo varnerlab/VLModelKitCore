@@ -37,8 +37,8 @@ public class VLSimpleGRNModel:VLBaseModel {
             let kinetic_array = try self.kinetic(time:0.0,state: state, parameters: myModelParameters).resolve()
             
             // evaluate the RHS of the model -
-            let term_1:VLVector<Float> = AM*state
-            let term_2:VLVector<Float> = BM*kinetic_array
+            let term_1:VLVector<Float> = try (AM*state).resolve()
+            let term_2:VLVector<Float> = try (BM*kinetic_array).resolve()
             let tmp_array = term_1 + term_2
            
             // call the completion handler -

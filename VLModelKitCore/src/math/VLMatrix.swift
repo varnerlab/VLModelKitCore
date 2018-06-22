@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Accelerate
 
 public struct VLMatrix<Element:Numeric> {
     
@@ -57,7 +58,57 @@ extension VLMatrix where Element == Float {
 extension VLMatrix where Element == Float {
     
     public static func *(left:VLMatrix<Float>,right:VLVector<Float>) -> VLModelKitResult<VLVector<Float>> {
-        return VLModelKitResult.success(VLVector<Float>.zeros(count: 0))
+        
+        // do the dimensions match?
+        guard left.number_of_cols == right.count else {
+            
+            return VLModelKitResult.failure(error: VLModelKitError.DimensionMismatchError(message: "ERROR: Trailing and leading dimensions must match for matrix vector multiplication operation"))
+        }
+        
+        // get the buffers -
+        let buffer_left = left.buffer
+        let buffer_right = right.buffer
+        
+        // initialize the solution buffer -
+        var solution_buffer = VLVector<Float>.zeros(count: left.number_of_rows)
+        
+        // setup the calculation -
+        let M = Int32(left.number_of_rows)
+        let N = Int32(left.number_of_cols)
+        let stride:Int32 = 1
+        cblas_sgemv(CblasRowMajor, CblasNoTrans,M, N, 1.0, buffer_left, N, buffer_right, stride, 0.0, &(solution_buffer.buffer), stride)
+        
+        // return the solution buffer -
+        return VLModelKitResult.success(solution_buffer)
+    }
+    
+    public static func *(left:VLMatrix<Float>,right:VLMatrix<Float>) -> VLModelKitResult<VLMatrix<Float>>  {
+        
+        // if the length of these arrays is not the same, then they can't be added -
+        guard left.number_of_cols == right.number_of_rows else {
+            return VLModelKitResult.failure(error: VLModelKitError.DimensionMismatchError(message: "ERROR: Trailing and leading dimensions must match for matrix vector multiplication operation"))
+        }
+        
+        // TODO: Impl matrix multiplication
+        // 1) get buffers -
+        let buffer_left = left.buffer
+        let buffer_right = right.buffer
+        
+        // 2) initialize final buffer -
+        var CMatrix = VLMatrix<Float>(rows: left.number_of_rows, columns: right.number_of_cols, repeatedValue: 0.0)
+        
+        // 3) do the calculation -
+        let M = Int32(left.number_of_rows)
+        let N = Int32(right.number_of_cols)
+        let K = Int32(left.number_of_cols)
+        let LDA = K
+        let LDB = N
+        let LDC = M
+        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N, K, 1.0,
+                    buffer_left, LDA, buffer_right, LDB, 0.0, &(CMatrix.buffer), LDC)
+        
+        // 4)
+        return VLModelKitResult.success(CMatrix)
     }
     
     public static func |=(left:VLMatrix<Float>,right:VLVector<Float>) -> VLModelKitResult<VLMatrix<Float>> {
